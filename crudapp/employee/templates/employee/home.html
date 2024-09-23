@@ -1,0 +1,76 @@
+
+{% extends 'employee/base.html' %}
+{% load static  %}
+{% block content %}
+
+    <div class=" row ">
+        <h2 class=" mt-5 text-danger ml-5">CRUD OPERATION  AND  AUTHENTICATION  APPLICATION</h2>
+        <div class="col-sn-4 mt-5">
+            <h3 class="text-success text-center">student form</h3>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value="Add" class=" ml-5 btn btn-primary text-center">
+            </form>
+        </div>
+
+        <div class="col-sm-8 mt-5">
+            <h3 class="text-success text-center">Student can Update and Delete data</h3>
+
+            <table class="table table-hover">
+               <thead>
+                <tr>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input type="search" class="form-control mr-sm-2  w-50" placeholder="search " aria-label="Search" >
+                        <button class="btn btn-outline-success my-2 my-sm-0 d-inline" type="submit">Search</button>
+                    </form>
+                    <th>Id</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Designation</th>
+                    <th>Gender</th>
+                    <th>Course</th>
+                    <th>CTD</th>
+                    <th>Action</th>
+            
+                </tr>
+               </thead>
+
+               
+                {% if fdata %}
+                    <tbody>
+                        {% for f in fdata %}
+                        <tr>
+                            <td>{{f.f_Id}}</td>
+                            <td>{{f.Image}}</td>
+                            <td>{{f.f_Name}}</td>
+                            <td>{{f.f_Email}}</td>
+                            <td>{{f.f_mobile}}</td>
+                            <td>{{f.f_Designation}}</td>
+                            <td>{{f.f_Gender}}</td>
+                            <td>{{f.f_Course}}</td>
+                            <td>{{f.f_Createdate}}</td>
+                            <td>
+                                <a href="{% url 'update' f.f_Id %}"  class="btn btn-warning btn-sm  d-inline">Edit</a>
+                                
+                                <form action="{% url 'delete' f.f_Id %}" method="POST" class="d-inline"> {% csrf_token  %}
+                        
+                                    <input type="submit" class="btn btn-danger btn-sm" value="delete">
+                                </form>
+                            </td>
+                        </tr>
+                        
+
+                        {% endfor %}
+                    </tbody>
+                {% endif %}
+
+               
+            </table>
+        </div>
+        
+    </div>
+
+{% endblock content %}
